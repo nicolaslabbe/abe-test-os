@@ -1,0 +1,44 @@
+
+			<!-- Header -->
+				<header id="header" class="alt">
+					<h1 id="logo">
+						<a href="index.html">
+						{{abe type='text' key='title' desc='Title' tab='Head'}}
+						<span>by {{abe type='text' key='author' desc='Author' tab='Head'}}</span>
+						</a>
+					</h1>
+					<nav id="nav">
+						<ul>
+							{{abe type='import' file='menu.html'}}
+						</ul>
+					</nav>
+				</header>
+
+			<!-- Banner -->
+				<section id="banner">
+
+					<!--
+						".inner" is set up as an inline-block so it automatically expands
+						in both directions to fit whatever's inside it. This means it won't
+						automatically wrap lines, so be sure to use line breaks where
+						appropriate (<br />).
+					-->
+					<div class="inner">
+
+						<header>
+							<h2>{{abe type='text' key='title' desc='Title' tab='Head'}}</h2>
+						</header>
+						{{abe type='rich' key='description' desc='Description' tab='Head'}}
+						<footer>
+							<ul class="buttons vertical">
+								<li>
+									<a href="#main" class="button fit scrolly">
+									{{abe type='text' key='more' desc='More button' tab='Head'}}
+									</a>
+								</li>
+							</ul>
+						</footer>
+
+					</div>
+
+				</section>

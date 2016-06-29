@@ -1,0 +1,81 @@
+<!DOCTYPE HTML>
+<!--
+	Twenty by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	{{abe type='import' file='head.html'}}
+	<body class="index">
+		<div id="page-wrapper">
+
+			{{abe type='import' file='header.html'}}
+
+			<!-- Main -->
+				<article id="main">
+
+					{{abe type='import' file='main.html'}}
+
+					<!-- One -->
+						<section class="wrapper style2 container special-alt">
+							<div class="row 50%">
+								<div class="8u 12u(narrower)">
+
+									<header>
+										<h2>{{abe type='text' key='bloc_green_title' desc='Title' tab='Bloc green'}}</h2>
+									</header>
+									<p>{{abe type='rich' key='bloc_green_description' desc='Description' tab='Bloc green'}}</p>
+									<footer>
+										<ul class="buttons">
+											<li><a href="#" class="button">{{abe type='text' key='bloc_green_btn' desc='Button' tab='Bloc green'}}</a></li>
+										</ul>
+									</footer>
+
+								</div>
+								<div class="4u 12u(narrower) important(narrower)">
+
+									<ul class="featured-icons">
+										<li><span class="icon fa-clock-o"><span class="label">Feature 1</span></span></li>
+										<li><span class="icon fa-volume-up"><span class="label">Feature 2</span></span></li>
+										<li><span class="icon fa-laptop"><span class="label">Feature 3</span></span></li>
+										<li><span class="icon fa-inbox"><span class="label">Feature 4</span></span></li>
+										<li><span class="icon fa-lock"><span class="label">Feature 5</span></span></li>
+										<li><span class="icon fa-cog"><span class="label">Feature 6</span></span></li>
+									</ul>
+
+								</div>
+							</div>
+						</section>
+
+					<!-- Two -->
+						<section class="wrapper style1 container special">
+							<div class="row">
+								{{#each features}}
+								<div class="4u 12u(narrower)">
+
+									<section>
+										<span class="icon featured fa-check"></span>
+										<header>
+											<h3>{{abe type='text' key='features.title' desc='title' tab='Features'}}</h3>
+										</header>
+										<p>{{abe type='text' key='features.desc' desc='description' tab='Features'}}</p>
+									</section>
+
+								</div>
+								{{/each}}
+							</div>
+						</section>
+
+					{{abe type='import' file='hub.html'}}
+
+				</article>
+
+			<!-- Footer -->
+			{{abe type='import' file='footer.html'}}
+
+		</div>
+
+		{{abe type='import' file='scripts.html'}}
+
+	</body>
+</html>

@@ -1,0 +1,31 @@
+{{abe type='data' key='hubs' desc='' source='select title,image,description from / where template=article' editable="false" tab='default'}}
+
+					<!-- Three -->
+						<section class="wrapper style3 container special">
+
+							<header class="major">
+								<h2>Next look at this <strong>cool stuff</strong></h2>
+							</header>
+
+							<div class="row">
+								<div class="6u 12u(narrower)">
+									{{#each hubs}}
+										<section>
+											<a href="{{abe_meta.link}}" class="image featured"><img src="{{image}}" alt="" /></a>
+											<header>
+												<h3>{{title}}</h3>
+											</header>
+											<p>{{description}}</p>
+										</section>
+									{{/each}}
+
+								</div>
+							</div>
+
+							<footer class="major">
+								<ul class="buttons">
+									<li><a href="#" class="button">See More</a></li>
+								</ul>
+							</footer>
+
+						</section>

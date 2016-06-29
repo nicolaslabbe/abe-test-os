@@ -1,0 +1,12 @@
+{{abe type='data' key='menus' desc='' source='select title from / where template=article' editable="false" tab='default'}}
+
+							<li class="current"><a href="index.html">Welcome</a></li>
+							<li class="submenu">
+								<a href="#">Articles</a>
+								<ul>
+									{{#each menus}}
+										<li><a href="{{abe_meta.link}}">{{title}}</a></li>
+									{{/each}}
+								</ul>
+							</li>
+							<li><a href="#" class="button special">Sign Up</a></li>
