@@ -1,5 +1,37 @@
 'use strict';
 
+function deep_value_array(obj, path) {
+
+  if(path.indexOf('.') === -1) {
+    return (typeof obj[path] !== 'undefined' && obj[path] !== null) ? obj[path] : null
+  }
+
+  var pathSplit = path.split('.')
+  var res = JSON.parse(JSON.stringify(obj))
+
+  while(pathSplit.length > 0) {
+    
+    if(typeof res[pathSplit[0]] !== 'undefined' && res[pathSplit[0]] !== null) {
+      if(typeof res[pathSplit[0]] === 'object' && Object.prototype.toString.call(res[pathSplit[0]]) === '[object Array]') {
+        var resArray = []
+
+        Array.prototype.forEach.call(res[pathSplit[0]], (item) => {
+          resArray.push(Sql.deep_value_array(item, pathSplit.join('.').replace(`${pathSplit[0]}.`, '')))
+        })
+        res = resArray
+        pathSplit.shift()
+      }else {
+        res = res[pathSplit[0]]
+      }
+    }else {
+      return null
+    }
+    pathSplit.shift()
+  }
+
+  return res
+}
+
 function getHreflang(url, json, abe) {
 	var hreflang = "";
 	if(typeof url !== 'undefined' && url !== null) {
@@ -12,8 +44,8 @@ function getHreflang(url, json, abe) {
 				hreflang = hreflang[1];
 			}
 		}else if(typeof abe.config.seo.hreflangRegex !== 'undefined' && abe.config.seo.hreflangRegex !== null) {
-			
-		}
+				hreflang = deep_value_array(json, 'hreflang')
+			}
 	}
 	hreflang = "<link rel=\"alternate\" href=\"" + url + "\" hreflang=\"" + hreflang + "\" />\n"
 
@@ -21,6 +53,17 @@ function getHreflang(url, json, abe) {
 }
 
 var hooks = {
+	beforeSave: function(obj, abe) {
+		if(typeof obj.json.content.seoPlugin === 'undefined' || obj.json.content.seoPlugin === null
+			|| typeof obj.json.content.seoPlugin.alternates === 'undefined' || obj.json.content.seoPlugin.alternates === null) {
+			var filePath = obj.json.content.abe_meta.link
+			filePath = abe.fileUtils.removeExtension(filePath) + '.' + abe.config.files.templates.extension
+			abe.log.write('seo', 'beforeSave ' + filePath)
+			obj.json.content['seoPlugin'] = { alternates: filePath };
+		}
+
+		return obj
+	},
 	beforeUpdate: function(json, oldFilePath, template, path, name, req, deleteFiles, abe) {
 		try {
 				
@@ -47,7 +90,7 @@ var hooks = {
 			    			jsonCheck.seoPlugin.alternates = useFirst
 
 			    			abe.log.write('seo', 'update > ' + file.path)
-			    			abe.log.write('seo', 'set > ' + useFirst + ' > ' + useFirst)
+			    			abe.log.write('seo', 'set > ' + useFirst)
 			    			abe.saveJson(file.path, jsonCheck);
 			    		}
 			    	})
@@ -128,14 +171,25 @@ var hooks = {
 		try {
 			if(typeof json.seoPlugin === 'undefined' || json.seoPlugin === null
 				|| typeof json.seoPlugin.alternates === 'undefined' || json.seoPlugin.alternates === null) {
-				var tplUrl = abe.FileParser.getFileDataFromUrl(oldFilePath);
-
+				var tplUrl = abe.FileParser.getFileDataFromUrl(abe.fileUtils.concatPath(abe.config.draft.url, oldFilePath));
+				var oldAlternate = ""
 				var oldJson = abe.FileParser.getJson(tplUrl.json.path);
-				json['seoPlugin'] = { alternates: oldJson.seoPlugin.alternates };
-				abe.log.write('seo', 'afterCreate use ' + tplUrl.json.path + ' < ' + oldJson.seoPlugin.alternates)
+				if(typeof oldJson.seoPlugin === 'undefined' || oldJson.seoPlugin === null
+					|| typeof oldJson.seoPlugin.alternates === 'undefined' || oldJson.seoPlugin.alternates === null) {
+					oldAlternate = oldJson.abe_meta.link
+
+					oldJson['seoPlugin']= {alternates: oldAlternate};
+					abe.saveJson(tplUrl.json.path, oldJson);
+					
+					abe.log.write('seo', 'update old json missing alternate > ' + tplUrl.json.path)
+					abe.log.write('seo', 'set > ' + oldAlternate)
+				}else {
+					oldAlternate = oldJson.seoPlugin.alternates
+				}
+				json['seoPlugin'] = { alternates: oldAlternate };
+				abe.log.write('seo', 'afterCreate use ' + tplUrl.json.path + ' < ' + oldAlternate)
 			}
 		} catch(e) {
-				
 			console.log(e);
 		}
 
