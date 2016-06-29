@@ -15,7 +15,6 @@ var csrf = require('csurf');
 
 var hooks = {
   afterImport: function(res, file, conf, ctx, abe) {
-
     if (file === 'right-list-head') {
       var workflows = config.getConfig('workflow', abe);
       var html = ''
@@ -32,7 +31,7 @@ var hooks = {
       }
 
       function addBtn (type, hidden) {
-        var btn = "\n<button class=\"btn btn-info btn-save " + ((hidden) ? 'btn-hidden' : '') + "\" data-action=\"" + type + "\">";
+        var btn = "\n<button class=\"btn btn-info btn-save " + ((hidden && type !== 'draft') ? 'btn-hidden' : '') + "\" data-action=\"" + type + "\">";
         btn += "\n<span class=\"before\">";
         btn += "\n" + type;
         btn += "\n</span>";

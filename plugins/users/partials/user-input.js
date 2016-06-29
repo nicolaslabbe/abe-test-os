@@ -1,7 +1,7 @@
 var userInput = {
   init: function () {
     // const
-    this._btnHidden = document.querySelector('.form-wrapper .btn-hidden');
+    this._btnHidden = document.querySelector('.form-wrapper [data-action="draft"]');
     this._inputs = [].slice.call(document.querySelectorAll('input.form-abe'));
     this._inputs = this._inputs.concat([].slice.call(document.querySelectorAll('textarea.form-abe')));
     this._inputsFile = [].slice.call(document.querySelectorAll('.upload-wrapper input[type="file"]'))

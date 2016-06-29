@@ -1,5 +1,5 @@
 var fs = require('fs');
-var bcrypt = require('bcrypt');
+var bcrypt = require('bcrypt-nodejs');
 var config = require('./config');
 var Cookies = require('cookies');
 var jwt = require('jwt-simple');

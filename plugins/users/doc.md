@@ -4,12 +4,6 @@
 
 ### Requirement (optional)
 
-- node-gyp for bycript module
-
-see installation https://github.com/nodejs/node-gyp#installation
-
-### Requirement (optional)
-
 > redis-server, if no redis server is running no **ratelimiter** on login will be done
 
 Install an run redis if security ratelimiter needed on your website
