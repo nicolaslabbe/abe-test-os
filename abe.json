@@ -1,3 +1,6 @@
 {
-  "logs": true
+  "logs": true,
+  "seo": {
+    "hreflangRegex": "^\/(.*?)\/"
+  }
 }
