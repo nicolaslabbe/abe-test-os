@@ -5,8 +5,10 @@ var route = function route(req, res, next, abe) {
   if(typeof res._header !== 'undefined' && res._header !== null) return;
 
   var htmlToSend = '';
-  var request = '{{abe type="data" key="results" source="' + req.body.select + '"}}';
+  var request = '{{abe type="data" key="results" source="' + req.body.select.replace() + '"}}';
   var json = req.body.json
+  var sourceAttr = abe.config.source.name
+
   if(typeof json !== 'undefined' && json !== null
     && json !== '') {
     json = JSON.parse(json)
@@ -14,7 +16,7 @@ var route = function route(req, res, next, abe) {
     json = {}
   }
 
-  var result = abe.Sql.getDataRequest(
+  var result = abe.Util.getDataList(
     req.body.path,
     request,
     json
@@ -29,9 +31,10 @@ var route = function route(req, res, next, abe) {
       req: req,
       res: res
     },
+    path: req.body.path,
     select: req.body.select,
     json: req.body.json,
-    result: result,
+    result: json[sourceAttr]['results'],
     request: request
   })
   

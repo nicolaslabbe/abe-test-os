@@ -1,4 +1,4 @@
-{{abe type='data' key='hubs' desc='' source='select title,image,description from / where template=article' editable="false" tab='default'}}
+{{abe type='data' key='hubs' desc='' source='select title,image,description from / where template=article ORDER BY date ASC' editable="false" tab='default' paginate="10"}}
 
 					<!-- Three -->
 						<section class="wrapper style3 container special">
@@ -21,6 +21,12 @@
 
 								</div>
 							</div>
+
+							{{#each abe_meta.paginate.hubs.links}}
+								<a href="{{this.link}}"
+								{{#ifCond index @root.abe_meta.paginate.hubs.current}}style="color: red"{{/ifCond}}
+								>{{index}}</a>
+							{{/each}}
 
 							<footer class="major">
 								<ul class="buttons">
