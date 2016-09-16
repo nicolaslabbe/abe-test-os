@@ -1,6 +1,19 @@
 {
   "logs": true,
-  "seo": {
-    "hreflangRegex": "^\/(.*?)\/"
-  }
+  "dependencies": [
+    "https://github.com/AdFabConnect/abe-calendar",
+    "https://github.com/AdFabConnect/abe-comments",
+    "https://github.com/AdFabConnect/abe-custom-date",
+    "https://github.com/AdFabConnect/abe-debugger",
+    "https://github.com/AdFabConnect/abe-gallery",
+    "https://github.com/AdFabConnect/abe-geomaj",
+    "https://github.com/AdFabConnect/abe-hint",
+    "https://github.com/AdFabConnect/abe-lorem",
+    "https://github.com/AdFabConnect/abe-migrate",
+    "https://github.com/AdFabConnect/abe-order-tab",
+    "https://github.com/AdFabConnect/abe-tags",
+    "https://github.com/AdFabConnect/abe-users",
+    "https://github.com/AdFabConnect/abe-validator",
+    "https://github.com/AdFabConnect/abe-virtualIncludes"
+  ]
 }
